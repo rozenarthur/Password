@@ -4,3 +4,5 @@
 # Datasource local storage ignored files
 /dataSources.local.xml
 /*.db
+Password_Managers.db
+/Password_Managers.db
