@@ -5,7 +5,7 @@ import config
 #the settings to connect to the DataBase
 connect = sqlite3.connect(config.DBName)
 c = connect.cursor()
-TableName = config.TableName
+TableName = "Passwords"
 
 #Creates the initial table of passwords
 def create_Table():
