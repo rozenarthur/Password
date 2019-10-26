@@ -5,23 +5,22 @@ import config
 #the settings to connect to the DataBase
 connect = sqlite3.connect(config.DBName)
 c = connect.cursor()
-TableName = "Passwords"
+passwordTableName = "Passwords"
+masterPasswordTableName = "Master Password"
 
 #Creates the initial table of passwords
 def create_Table():
-    c.execute("CREATE TABLE IF NOT EXISTS " + TableName + "(ServiceName TEXT, Password TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS " + passwordTableName + " (ServiceName PRIMARY KEY, Password TEXT)")
 
-#inserts the service and the password into the database
+#inserts the service and the password into the database - only works when service doesn't exist
 def store_Password(service ,password):
-    isServiceFound = c.execute("SELECT * FROM " + TableName + " WHERE ServiceName=" + service).rowcount
-
-    #only store the password if the service doesn't exist
-    if(isServiceFound == 0):
-        c.execute("INSERT INTO " + TableName + " VALUES ('" + service + "', '" + password + "')")
-
+    c.execute("INSERT INTO " + passwordTableName + " VALUES (?, ?)", (service, password))
     connect.commit()
+
+#gets returns the password of the service
+def get_Password(service):
+    return c.execute("SELECT Password FROM " + passwordTableName + " WHERE ServiceName = ? ", (service,)).fetchone()[0]
+
+def close_db():
     c.close()
     connect.close()
-
-def get_Password(service):
-    return c.execute("SELECT Password FROM " + TableName + " WHERE ServiceName=" + service).fetchone()
