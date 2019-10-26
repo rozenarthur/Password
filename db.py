@@ -24,3 +24,4 @@ def get_Password(service):
 def close_db():
     c.close()
     connect.close()
+
