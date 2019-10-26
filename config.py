@@ -1,1 +1,1 @@
-DBName = 'PasswordManager.db'
+DBName = 'Password_Manager.db'
