@@ -6,7 +6,7 @@ import config
 connect = sqlite3.connect(config.DBName)
 c = connect.cursor()
 passwordTableName = "Passwords"
-masterPasswordTableName = "Master Password"
+masterPasswordTableName = "Master_Password"
 
 #Creates the initial table of passwords
 def create_Table():
@@ -32,7 +32,10 @@ def update_Password(service, password):
 
 #gets returns the password of the service
 def get_Password(service):
-    return c.execute("SELECT Password FROM " + passwordTableName + " WHERE ServiceName = ? ", (service,)).fetchone()[0]
+    try:
+        return c.execute("SELECT Password FROM " + passwordTableName + " WHERE ServiceName = ? ", (service,)).fetchone()[0]
+    except:
+        return None
 
 #Creates a table for the master password
 def create_Master_Table():
@@ -46,6 +49,13 @@ def store_Master_Password(password):
         return "Your master password was saved"
     except:
         return "An existing master password already exists. You need to change the master password"
+
+#gets returns the master password of the user
+def get_MasterPassword():
+    try:
+        return c.execute("SELECT Password FROM " + masterPasswordTableName + " WHERE MasterPassword = MasterPassword ").fetchone()[0]
+    except:
+        return None
 
 #updates the existing master password
 def update_Master_Password(password):
