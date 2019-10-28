@@ -44,7 +44,7 @@ def create_Master_Table():
 #creates an initial master password
 def store_Master_Password(password):
     try:
-        c.execute("INSERT INTO " + masterPasswordTableName + " VALUES (MasterPassword, ?)", (password,))
+        c.execute("INSERT INTO " + masterPasswordTableName + " VALUES ('MasterPassword', ?)", (password,))
         connect.commit()
         return "Your master password was saved"
     except:
@@ -53,7 +53,7 @@ def store_Master_Password(password):
 #gets returns the master password of the user
 def get_MasterPassword():
     try:
-        return c.execute("SELECT Password FROM " + masterPasswordTableName + " WHERE MasterPassword = MasterPassword ").fetchone()[0]
+        return c.execute("SELECT Password FROM " + masterPasswordTableName + " WHERE MasterPassword = 'MasterPassword' ").fetchone()[0]
     except:
         return None
 

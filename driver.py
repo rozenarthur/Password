@@ -12,18 +12,13 @@ while (flag is True):
     p1 = passwords(yourMasterPassword)
 
     if(actualMasterPassword is None):
-        print(db.store_Master_Password(p1.hashedPassword))
+        db.store_Master_Password(p1.hashedPassword)
         actualMasterPassword = p1.hashedPassword
         print("No previous Master password was found. The master password you entered has been saved as your new master password")
 
     else:
-        if(p1.isCorrectHash(yourMasterPassword, actualMasterPassword)):
+        if(p1.isCorrectHash(yourMasterPassword.encode(), actualMasterPassword)):
             flag = False
             print("The master password is correct")
         else:
             print("The master password is not correct. Try again")
-
-
-
-
-
