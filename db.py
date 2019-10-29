@@ -15,11 +15,11 @@ def create_Table():
 #inserts the service and the password into the database - only works when service doesn't exist
 def store_Password(service, password):
     try:
-        c.execute("INSERT INTO " + passwordTableName + " VALUES (?, ?)", (service, password))
+        c.execute("INSERT INTO " + passwordTableName + " VALUES (?, ?)", (service, password,))
         connect.commit()
         return "The password " + password + " was saved for the service " + service
     except:
-        return "The service " + service + " already exists. Enter a new service or get a new password for existing service."
+        return None
 
 #updates an existing service, with a new password
 def update_Password(service, password):
