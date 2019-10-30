@@ -8,7 +8,7 @@ def getPassword(p1):
     password = db.get_Password(service)
 
     if(password is None):
-        print("The service, " + service + "doesn't exist. Create the service and store a password")
+        print("The service, " + service + " doesn't exist. Create the service and store a password")
     else:
         password = p1.decryptServicePassword(password)
         print("The password for the service, " + service + " is: " + password)
@@ -21,13 +21,21 @@ def storePassword(p1):
     queryResult = db.store_Password(service, encryptedeRandomPW)
 
     if(queryResult is not None):
-        print("The service, " + service + " was saved. Its password is: " + randomPW)
+        print("The service, " + service + " was saved. Its password is: " + p1.decryptServicePassword(encryptedeRandomPW))
     else:
         print("The service, " + service + " already exists. Enter a new service.")
 
 #updates an existing services password by generating new random password
 def updatePassword(p1):
-    return None
+    service = input("Enter a service to update its password: ").lower()
+    randomPW = p1.createRandomPassword()
+    encryptedeRandomPW = p1.encryptServicePassword(randomPW)
+    queryResult = db.update_Password(service, encryptedeRandomPW)
+    if(queryResult is not None):
+        print(randomPW)
+        print("The service " + service + " password was updated. The updated password is " + p1.decryptServicePassword(encryptedeRandomPW))
+    else:
+        print("The service " + service + " does not exist. Either create a new service or update a different service.")
 
 #changes the master password if its correct
 def changeMasterPassword(p1):

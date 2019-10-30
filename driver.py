@@ -50,6 +50,7 @@ while(flag2 is True):
         main.changeMasterPassword(p1)
     elif(instruction.lower() == 'q'):
         flag2 = False
+        db.close_db()
     else:
         print("You entered an invalid command. Try again!")
 

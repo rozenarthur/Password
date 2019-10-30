@@ -17,7 +17,7 @@ def store_Password(service, password):
     try:
         c.execute("INSERT INTO " + passwordTableName + " VALUES (?, ?)", (service, password,))
         connect.commit()
-        return "The password " + password + " was saved for the service " + service
+        return "The password " + str(password) + " was saved for the service " + service
     except:
         return None
 
@@ -26,9 +26,9 @@ def update_Password(service, password):
     try:
         c.execute("UPDATE " + passwordTableName + " SET Password = ? WHERE ServiceName = ?", (password, service))
         connect.commit()
-        return "The password" + password + " was updated for the service " + service
+        return "The password" + str(password) + " was updated for the service " + service
     except:
-        return "The service " + service + " does not exist. Either create a new service or update a different service."
+        return None
 
 #gets returns the password of the service
 def get_Password(service):
