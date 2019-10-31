@@ -60,7 +60,7 @@ def get_MasterPassword():
 #updates the existing master password
 def update_Master_Password(password):
     try:
-        c.execute("UPDATE " + passwordTableName + " SET Password = ? WHERE MasterPassword = MasterPassword", (password,))
+        c.execute("UPDATE " + masterPasswordTableName + " SET Password = ? WHERE MasterPassword = MasterPassword", (password,))
         connect.commit()
         return "The master password was updated"
     except:

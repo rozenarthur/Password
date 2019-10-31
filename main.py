@@ -45,7 +45,7 @@ def changeMasterPassword(p1):
     if(VerifyMasterPassword(p1,yourMasterPassword,actualMasterPassoword)):
         newPW = input("Enter a new password: ")
         p1 = passwords(newPW)
-        db.store_Master_Password(p1.hashedPassword)
+        db.update_Master_Password(p1.hashedPassword)
         print("The Master password you entered, " + newPW + " was saved as your new Master password.")
 
 #verifys if the master password is correct or not
