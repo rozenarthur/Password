@@ -39,5 +39,27 @@ def updatePassword(p1):
 
 #changes the master password if its correct
 def changeMasterPassword(p1):
-    return None
+    yourMasterPassword = input("Enter your current Master password to change it: ")
+    actualMasterPassoword = db.get_MasterPassword()
+
+    if(VerifyMasterPassword(p1,yourMasterPassword,actualMasterPassoword)):
+        newPW = input("Enter a new password: ")
+        p1 = passwords(newPW)
+        db.store_Master_Password(p1.hashedPassword)
+        print("The Master password you entered, " + newPW + " was saved as your new Master password.")
+
+#verifys if the master password is correct or not
+def VerifyMasterPassword(p1,yourMasterPassword,actualMasterPassword):
+    if (p1.isCorrectHash(yourMasterPassword.encode(), actualMasterPassword)):
+        print("The master password is correct")
+        return True
+    else:
+        print("The master password is not correct. Try again")
+        return False
+
+#creates a master password by adding it to db
+def CreateMasterPassword(p1):
+    db.store_Master_Password(p1.hashedPassword)
+    print("No previous Master password was found. The master password you entered has been saved as your new master password")
+
 

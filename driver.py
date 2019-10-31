@@ -9,23 +9,17 @@ db.create_Master_Table()
 actualMasterPassword = db.get_MasterPassword()
 p1 = passwords('')
 
-flag = True
-while (flag is True):
+flag = False
+while (flag is False):
     yourMasterPassword = input("Enter your master password to access all your service passwords: ")
     actualMasterPassword = db.get_MasterPassword()
     p1 = passwords(yourMasterPassword)
 
     if(actualMasterPassword is None):
-        db.store_Master_Password(p1.hashedPassword)
+        main.CreateMasterPassword(p1)
         actualMasterPassword = p1.hashedPassword
-        print("No previous Master password was found. The master password you entered has been saved as your new master password")
-
     else:
-        if(p1.isCorrectHash(yourMasterPassword.encode(), actualMasterPassword)):
-            flag = False
-            print("The master password is correct")
-        else:
-            print("The master password is not correct. Try again")
+        flag = main.VerifyMasterPassword(p1,yourMasterPassword,actualMasterPassword)
 
 flag2 = True
 while(flag2 is True):
@@ -53,4 +47,3 @@ while(flag2 is True):
         db.close_db()
     else:
         print("You entered an invalid command. Try again!")
-
